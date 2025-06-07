@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Criação da instância do Axios
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3333',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
 });
 
 // Interceptor para adicionar o token JWT nas requisições

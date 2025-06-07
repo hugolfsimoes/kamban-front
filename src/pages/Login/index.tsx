@@ -1,66 +1,115 @@
-import { type FormEvent, useState } from 'react';
+import { useState } from 'react';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '../../context/AuthContext';
 import Logo from '../../assets/logo.svg';
 import AuthLayout from '../../layouts/AuthLayout';
+import { Button } from '@/components/Button';
+import { Input } from '@/components/Input';
+import { useNavigate } from '@tanstack/react-router';
+
+const loginSchema = z.object({
+  email: z.string().email('E-mail inválido'),
+  password: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres'),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function Login() {
+  const [apiError, setApiError] = useState<string | null>(null);
   const { signin } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    clearErrors: clearFieldErrors,
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  async function onSubmit(data: LoginFormData) {
     try {
-      await signin({ email, password });
+      await signin(data);
+      navigate({ to: '/dashboard' });
     } catch (err: any) {
-      setError(err.message || 'Erro ao autenticar');
+      if (err.response?.status === 401) {
+        setApiError('Credenciais inválidas');
+      } else if (err.response?.status === 400) {
+        setApiError('Preencha os campos corretamente');
+      } else {
+        setApiError('Erro inesperado. Tente novamente mais tarde.');
+      }
     }
+  }
+
+  function clearApiError() {
+    setApiError(null);
   }
 
   return (
     <AuthLayout>
       <img src={Logo} alt='Logo Kanban' className='w-24 h-24 mb-6' />
-      <form onSubmit={handleSubmit} className='w-full max-w-sm space-y-4'>
+      <div className='flex flex-col items-center gap-3'>
+        <h1>Entre em sua conta</h1>
+        <div className='space-x-1'>
+          <span>Novo por aqui?</span>
+          <a href='/register' className='text-4'>
+            Crie uma conta
+          </a>
+        </div>
+      </div>
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='w-full max-w-sm space-y-4 mt-8'
+      >
         <div className='flex flex-col'>
-          <label
-            htmlFor='email'
-            className='mb-1 text-sm font-medium text-gray-700'
-          >
-            Email
-          </label>
-          <input
+          <Input
             id='email'
             type='email'
+            label='Email'
             placeholder='Digite seu email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className='border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary'
+            error={errors.email?.message}
+            {...register('email')}
+            onChange={(e) => {
+              clearFieldErrors('email');
+              clearApiError();
+              register('email').onChange(e);
+            }}
           />
         </div>
+
         <div className='flex flex-col'>
-          <label
-            htmlFor='password'
-            className='mb-1 text-sm font-medium text-gray-700'
-          >
-            Senha
-          </label>
-          <input
+          <Input
             id='password'
             type='password'
+            label='Senha'
             placeholder='Digite sua senha'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className='border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary'
+            error={errors.password?.message}
+            {...register('password')}
+            onChange={(e) => {
+              clearFieldErrors('password');
+              clearApiError();
+              register('password').onChange(e);
+            }}
           />
         </div>
-        {error && <p className='text-red-500 text-sm'>{error}</p>}
-        <button
+
+        {apiError && (
+          <div className='p-5 w-full bg-red-100 rounded-md'>
+            <p className='text-sm text-red-500 text-center'>{apiError}</p>
+          </div>
+        )}
+
+        <Button
           type='submit'
-          className='w-full py-2 px-4 bg-[var(--primary)] text-white rounded hover:bg-opacity-90 transition'
+          className='w-full rounded-lg transition cursor-pointer'
         >
           Entrar
-        </button>
+        </Button>
       </form>
     </AuthLayout>
   );

@@ -2,14 +2,30 @@
 @tailwind utilities;
 
 @theme {
-  --color-primary: #2a4c7e;
+  --color-primary-50: #a8c2ff;
+  --color-primary-100: #2463eb;
+  --color-primary-150: #1d4ed8;
+
+  --color-secondary-50: #f3f4f6;
+  --color-secondary-100: #1f2937;
+  --color-secondary-150: #111827;
+
+  --color-primary-bg: #ffffff;
+  --color-texto: #333333;
+
+  --text-1: 4px;
+  --text-2: 8px;
+  --text-3: 12px;
+  --text-4: 16px;
+  --text-5: 20px;
+  --text-6: 24px;
 }
 
 /* ============================
    🌐 Variáveis CSS
 ============================ */
 :root {
-  --primary: #2a4c7e;
+  --primary: #2463eb;
   --secondary: #6bb9f0;
   --background: #f5f5f5;
   --text: #333;
@@ -38,24 +54,36 @@ body,
 }
 
 body {
-  @apply bg-white text-gray-900 antialiased;
+  @apply bg-primary-bg text-gray-900 antialiased;
   font-weight: 400;
   line-height: 1.5;
+  font-size: var(--text-4);
+  color: var(--color-texto);
 }
 
 /* ============================
    🔗 Links
 ============================ */
 a {
-  @apply text-blue-600 font-medium no-underline hover:text-blue-800 transition;
+  @apply text-primary-100 font-medium no-underline hover:text-primary-150 hover:underline transition;
 }
 
-/* ============================
-   🔘 Botões base (se não usar <Button/>)
-============================ */
-button {
-  @apply rounded border px-4 py-2 text-sm font-medium bg-gray-900 text-white hover:bg-gray-800 transition;
+h1 {
+  @apply text-primary-100 font-semibold text-5;
 }
-button:focus {
-  @apply outline-none ring-2 ring-offset-2 ring-primary;
+
+@layer utilities {
+  .autofill-fix {
+    @apply bg-white text-black;
+  }
+
+  input:-webkit-autofill {
+    box-shadow: 0 0 0 1000px white inset !important;
+    -webkit-text-fill-color: #000 !important;
+  }
+
+  .dark input:-webkit-autofill {
+    box-shadow: 0 0 0 1000px #1f2937 inset !important;
+    -webkit-text-fill-color: #fff !important;
+  }
 }

@@ -22,12 +22,17 @@ export interface AuthResponse {
   user: User;
   token: string;
 }
-export async function signin(data: SigninDTO): Promise<AuthResponse> {
-  const response = await api.post('/auth/login', data);
-  return response.data;
+export async function signin(payload: { email: string; password: string; }) {
+  const res = await api.post('/auth/login', payload);
+  return res.data;
 }
 
-export async function signup(data: SignupDTO): Promise<AuthResponse> {
-  const response = await api.post('/auth/signup', data);
-  return response.data;
+export async function signup(payload: {
+  name: string;
+  email: string;
+  password: string;
+  organizationName: string;
+}) {
+  const res = await api.post('/auth/signup', payload);
+  return res.data;
 }
