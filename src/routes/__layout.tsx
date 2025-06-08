@@ -1,28 +1,25 @@
-// src/main.tsx
 import ReactDOM from 'react-dom/client';
 import { StrictMode } from 'react';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
-import { routeTree } from './routeTree.gen';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import type { RouterContext } from './types/router-context'; // ✅ IMPORTA O TIPO
-import './index.css';
+import { routeTree } from '../routeTree.gen';
+import { AuthProvider, useAuth } from '@/context/AuthContext';
+import type { RouterContext } from '@/types/router-context';
+import '../index.css';
 
-// Cria o router com o tipo definido
+// Criação do router
 const router = createRouter({
   routeTree,
-  context: {} as RouterContext, // ✅ TIPAGEM NECESSÁRIA
+  context: {} as RouterContext,
 });
 
-// Registra o tipo para o TanStack Router reconhecer
+// ⛳ ESTA PARTE É ESSENCIAL:
 declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router;
-    // 👇 Adicione essa linha
-    context: RouterContext;
+    context: RouterContext; // ✅ Aqui é o que faltava
   }
 }
 
-// App wrapper que fornece o contexto real
 function App() {
   const auth = useAuth();
   return <RouterProvider router={router} context={{ auth }} />;
