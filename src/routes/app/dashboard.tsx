@@ -4,6 +4,6 @@ import { createFileRoute } from '@tanstack/react-router';
 export const Route = createFileRoute('/app/dashboard')({
   component: () => <Dashboard />,
   validateSearch: (search: Record<string, unknown>) => ({
-    teste: search.teste,
+    boardId: search.boardId,
   }),
 });

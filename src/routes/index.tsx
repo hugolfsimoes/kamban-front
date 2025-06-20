@@ -7,10 +7,7 @@ export const Route = createFileRoute('/')({
       return redirect({ to: '/login', search: {} });
     } else {
       return redirect({
-        to: '/app/dashboard',
-        search: {
-          teste: 'teste',
-        },
+        to: '/app/boards',
       });
     }
   },
