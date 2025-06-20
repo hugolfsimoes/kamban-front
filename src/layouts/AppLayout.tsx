@@ -9,7 +9,11 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <div className='flex flex-col min-h-screen'>
       <header className='h-16 bg-primary text-white flex items-center justify-between px-6 shadow-md'>
-        <Link to='/dashboard' className='text-xl font-bold'>
+        <Link
+          to='/app/dashboard'
+          className='text-xl font-bold'
+          search={{ teste: 'teste' }}
+        >
           MeuApp
         </Link>
 

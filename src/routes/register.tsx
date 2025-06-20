@@ -3,4 +3,11 @@ import Register from '@/pages/Register';
 
 export const Route = createFileRoute('/register')({
   component: () => <Register />,
+  head: () => ({
+    meta: [
+      {
+        title: 'Register',
+      },
+    ],
+  }),
 });

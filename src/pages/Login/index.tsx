@@ -33,7 +33,8 @@ export default function Login() {
   async function onSubmit(data: LoginFormData) {
     try {
       await signin(data);
-      navigate({ to: '/dashboard' });
+
+      navigate({ to: '/app/dashboard', search: { teste: 'teste' } });
     } catch (err: any) {
       if (err.response?.status === 401) {
         setApiError('Credenciais inválidas');
