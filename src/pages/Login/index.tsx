@@ -34,7 +34,7 @@ export default function Login() {
     try {
       await signin(data);
 
-      navigate({ to: '/app/boards' });
+      navigate({ to: '/boards' });
     } catch (err: any) {
       if (err.response?.status === 401) {
         setApiError('Credenciais inválidas');

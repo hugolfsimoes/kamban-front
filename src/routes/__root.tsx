@@ -1,10 +1,16 @@
-import { createRootRoute, Outlet, HeadContent } from '@tanstack/react-router';
+// Em: src/routes/__root.tsx (ESTE É O LUGAR CORRETO)
+
+import { createRootRoute, Outlet } from '@tanstack/react-router';
+
+// Você pode adicionar DevTools aqui se quiser
+// import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 
 export const Route = createRootRoute({
   component: () => (
     <>
-      <HeadContent />
+      {/* O Outlet renderiza todas as outras rotas filhas */}
       <Outlet />
+      {/* <TanStackRouterDevtools /> */}
     </>
   ),
 });

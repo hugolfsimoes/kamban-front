@@ -10,7 +10,7 @@ export function AppLayout({ children }: AppLayoutProps) {
     <div className='flex flex-col min-h-screen'>
       <header className='h-16 bg-primary text-white flex items-center justify-between px-6 shadow-md'>
         <Link
-          to='/app/boards'
+          to='/boards'
           className='text-xl font-bold'
           search={{ teste: 'teste' }}
         >

@@ -9,6 +9,7 @@ export interface Board {
 export const boardService = {
   async getBoards(): Promise<Board[]> {
     const response = await api.get('/boards');
-    return response.data;
+
+    return response.data.boards as Board[];
   },
 };
