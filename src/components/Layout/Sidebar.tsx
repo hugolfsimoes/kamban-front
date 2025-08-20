@@ -13,30 +13,29 @@ export function Sidebar() {
       className='
       flex flex-col         
       w-60                 
-      bg-[#026AA7]          
-      text-white           
-      p-5                  
+      bg-primary-150
+      text-white        
+      pt-5          
       flex-shrink-0        
     '
     >
       <div className='sidebar-header text-center'>
-        <h2 className='text-2xl font-bold'>Kamban 🚀</h2>
+        <h2 className='text-2xl font-bold'>Kamban</h2>
       </div>
 
       <nav className='flex-grow mt-10'>
         <ul className='list-none p-0 m-0'>
-          <li className='mb-2'>
+          <li className='text-white'>
             <Link
               to='/boards'
               className='
                 block 
                 py-2 px-4 
                 rounded-md 
-                text-base 
+                text-white
                 transition-colors duration-200
                 hover:bg-white/20
               '
-              // A mágica do link ativo com Tailwind acontece aqui!
               activeProps={{ className: 'bg-white/20 font-semibold' }}
             >
               Boards
@@ -49,7 +48,7 @@ export function Sidebar() {
                 block 
                 py-2 px-4 
                 rounded-md 
-                text-base 
+                text-white
                 transition-colors duration-200
                 hover:bg-white/20
               '
@@ -67,11 +66,11 @@ export function Sidebar() {
           className='
             w-full 
             py-2 
-            bg-red-600 
+            bg-primary-100
             rounded-md 
             font-bold 
             transition-colors duration-200
-            hover:bg-red-700
+            cursor-pointer
           '
         >
           Logout

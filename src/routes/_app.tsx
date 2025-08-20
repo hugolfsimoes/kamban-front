@@ -1,12 +1,11 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { Sidebar } from '@/components/Layout/Sidebar';
 
-// O componente do Layout que contém a estrutura visual
 function AppLayout() {
   return (
-    <div className='layout-container'>
+    <div className='w-full h-full flex'>
       <Sidebar />
-      <main className='content-container'>
+      <main className='p-6 w-full'>
         <Outlet />
       </main>
     </div>
@@ -15,7 +14,7 @@ function AppLayout() {
 
 export const Route = createFileRoute('/_app')({
   component: AppLayout,
-  beforeLoad: ({ location }) => {
+  beforeLoad: () => {
     if (!localStorage.getItem('token')) {
       throw redirect({ to: '/login' });
     }
