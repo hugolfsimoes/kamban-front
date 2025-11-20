@@ -6,6 +6,7 @@ import {
   ReactNode,
 } from 'react';
 import jwtDecode from 'jwt-decode';
+import { useNavigate } from '@tanstack/react-router';
 import * as authService from '@/services/auth/auth.service';
 
 interface User {
@@ -32,6 +33,7 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -49,11 +51,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   async function signin(data: { email: string; password: string }) {
-    console.log('papapapapS');
+    
 
     const { user, token } = await authService.signin(data);
     setUser(user);
     localStorage.setItem('token', token);
+    navigate({ to: '/boards' });
   }
 
   async function signup(data: {
@@ -62,14 +65,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     password: string;
     organizationName: string;
   }) {
-    const { user, token } = await authService.signup(data);
-    setUser(user);
-    localStorage.setItem('token', token);
+    await authService.signup(data);
+    navigate({ to: '/login' });
   }
 
   function logout() {
     localStorage.removeItem('token');
     setUser(null);
+    navigate({ to: '/login' });
   }
 
   return (
@@ -88,3 +91,4 @@ export const useAuth = () => {
   }
   return context;
 };
+

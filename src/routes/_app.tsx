@@ -3,9 +3,12 @@ import { Sidebar } from '@/components/Layout/Sidebar';
 
 function AppLayout() {
   return (
-    <div className='w-full h-full flex'>
+    <div className="flex h-screen w-screen overflow-hidden bg-gray-50">
+    
       <Sidebar />
-      <main className='p-6 w-full'>
+
+    
+      <main className="flex-1 overflow-y-auto p-6">
         <Outlet />
       </main>
     </div>

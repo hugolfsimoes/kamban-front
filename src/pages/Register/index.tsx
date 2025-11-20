@@ -17,7 +17,6 @@ export default function Register() {
     e.preventDefault();
     try {
       await signup({ name, email, password, organizationName });
-      // opcional: redirecionar após sucesso
     } catch (err: any) {
       setError(err.message || 'Erro ao criar conta');
     }

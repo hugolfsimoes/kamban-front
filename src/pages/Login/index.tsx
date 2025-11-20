@@ -7,7 +7,6 @@ import Logo from '../../assets/logo.svg';
 import AuthLayout from '../../layouts/AuthLayout';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
-import { useNavigate } from '@tanstack/react-router';
 
 const loginSchema = z.object({
   email: z.string().email('E-mail inválido'),
@@ -19,7 +18,6 @@ type LoginFormData = z.infer<typeof loginSchema>;
 export default function Login() {
   const [apiError, setApiError] = useState<string | null>(null);
   const { signin } = useAuth();
-  const navigate = useNavigate();
 
   const {
     register,
@@ -33,8 +31,6 @@ export default function Login() {
   async function onSubmit(data: LoginFormData) {
     try {
       await signin(data);
-
-      navigate({ to: '/boards' });
     } catch (err: any) {
       if (err.response?.status === 401) {
         setApiError('Credenciais inválidas');
