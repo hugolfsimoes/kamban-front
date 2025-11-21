@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Modal, type ModalRootWithContextRef } from '@/components/Modal';
 import { Button } from '@/components/Button';
 import { createBoard } from '@/services/boards';
+import { FaPlus } from 'react-icons/fa6';
 
 const schema = z.object({
   name: z.string().min(2, 'Nome muito curto'),
@@ -17,14 +18,14 @@ type FormValues = z.infer<typeof schema>;
 
 
 const COLORS = [
-  '#0079BF', 
-  '#70B500', 
+  '#0079BF',
+  '#70B500',
   '#FF9F1A',
   '#EB5A46',
-  '#C377E0', 
-  '#00C2E0', 
-  '#51E898', 
-  '#FF78CB', 
+  '#C377E0',
+  '#00C2E0',
+  '#51E898',
+  '#FF78CB',
 ];
 
 export function CreateBoardModal() {
@@ -56,8 +57,9 @@ export function CreateBoardModal() {
     <Modal.RootWithContext ref={modalRef}>
       {/* TRIGGER - opcional (pode usar Button) */}
       <Modal.Trigger asChild>
-        <Button variant="primary" size="lg">
-          Criar Board
+        <Button variant="primary" size="lg" className='gap-4' type='button'>
+          <FaPlus size={16} color='white' />
+          <span> Novo quadro</span>
         </Button>
       </Modal.Trigger>
 

@@ -20,7 +20,7 @@ export function Boards() {
   const { mutate: handleCreateBoard, isPending: creating } = useMutation({
     mutationFn: createBoard,
     onSuccess: () => {
-    
+
       queryClient.invalidateQueries({ queryKey: ['boards'] });
     },
   });
@@ -31,22 +31,23 @@ export function Boards() {
     return <p>Ocorreu um erro ao buscar os boards: {error.message}</p>;
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-6">Meus Boards</h1>
+    <div className='flex flex-col gap-8'>
+
+      <div className='flex items-center justify-between'>
+        <h1 className="text-2xl font-bold mb-6">Meus Quadros</h1>
+        <CreateBoardModal />
+      </div>
 
       {boards?.length === 0 ? (
         <p className="text-gray-600 mb-4">Você ainda não criou nenhum board.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="flex flex-wrap  gap-4">
           {boards?.map((board) => (
             <CardBoard board={board} key={board.id} />
           ))}
         </div>
       )}
 
-      <div className="w-full flex items-center justify-center mt-6">
-      <CreateBoardModal />
-      </div>
     </div>
   );
 }

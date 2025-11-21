@@ -4,11 +4,16 @@ import { IBoard } from '@/Interfaces/IBoard';
 
 interface InputCreateBoard {
   name: string;
+  color:string
 }
 
-export async function createBoard({ name }: InputCreateBoard): Promise<void> {
+export async function createBoard({ name,color }: InputCreateBoard): Promise<IBoard[]> {
   const response = await api.post('/boards', {
-    name
+    name,
+    color
   });
+
+  
+  return response.data.board as IBoard[];
 }
 
