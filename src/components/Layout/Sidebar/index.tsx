@@ -20,16 +20,16 @@ export function Sidebar() {
         flex-shrink-0
       "
     >
-      
+
       <div className="mb-8">
         <h2 className="text-2xl font-bold tracking-tight">Kamban</h2>
       </div>
 
-      
+
       <nav className="flex-1">
         <ul className="space-y-1">
-          <NavItem label="Boards" to="/_app/boards" />
-          <NavItem label="Dashboard" to="/_app/dashboard" />
+          <NavItem label="Boards" to="/boards" />
+          <NavItem label="Dashboard" to="/dashboard" />
         </ul>
       </nav>
 
@@ -43,6 +43,9 @@ export function Sidebar() {
             rounded-md
             font-semibold
             transition-colors
+            text-white
+            hover:bg-white/10
+            cursor-pointer
           "
         >
           Logout
