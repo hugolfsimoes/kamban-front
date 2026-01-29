@@ -1,9 +1,7 @@
-
 import type { ButtonHTMLAttributes } from 'react';
 import { X } from 'lucide-react';
 import { Close } from '@radix-ui/react-dialog';
 import { cn } from '@/utils/cn';
-
 
 export function ModalXClose({
   className,
@@ -12,8 +10,11 @@ export function ModalXClose({
   return (
     <Close asChild>
       <button
-        type="button"
-        className={cn('absolute right-4 top-4 text-primary-150', className)}
+        type='button'
+        className={cn(
+          'absolute right-4 top-4 text-primary-100 cursor-pointer',
+          className,
+        )}
         {...props}
       >
         <X size={22} />

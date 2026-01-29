@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { forwardRef, type RefObject } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -6,10 +6,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Modal, type ModalRootWithContextRef } from '@/components/Modal';
 import { Button } from '@/components/Button';
-import { createBoard } from '@/services/boards';
-import { FaPlus } from 'react-icons/fa6';
+import { updateBoard } from '@/services/boards';
 import { InputColor } from '@/components/Inputs/InputColor';
 import { Input } from '@/components/Inputs/Input';
+import { IBoard } from '@/Interfaces/IBoard';
 
 const schema = z.object({
   name: z
@@ -21,49 +21,52 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-export function CreateBoardModal() {
-  const modalRef = useRef<ModalRootWithContextRef>(null);
+type EditBoardModalProps = {
+  board: IBoard;
+};
+
+export const EditBoardModal = forwardRef<
+  ModalRootWithContextRef,
+  EditBoardModalProps
+>(function EditBoardModal({ board }, ref) {
   const queryClient = useQueryClient();
 
   const { reset, control, handleSubmit, register, formState } =
     useForm<FormValues>({
       resolver: zodResolver(schema),
       defaultValues: {
-        name: '',
-        color: '#1d4ed8',
+        name: board.name,
+        color: board.color,
       },
     });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: createBoard,
+    mutationFn: updateBoard,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['boards'] });
-      modalRef.current?.close();
+      (ref as RefObject<ModalRootWithContextRef>)?.current?.close();
       reset();
     },
   });
 
   const onSubmit = (data: FormValues) => {
-    mutate(data);
+    mutate({ id: board.id, name: data.name, color: data.color });
   };
 
   return (
-    <Modal.RootWithContext ref={modalRef}>
-      <Modal.Trigger asChild>
-        <Button variant='primary' size='lg' className='gap-4' type='button'>
-          <FaPlus size={16} color='white' />
-          <span> Novo quadro</span>
-        </Button>
-      </Modal.Trigger>
-
-      <Modal.Portal position='center' className='w-full max-w-[650px]'>
-        <Modal.XClose />
+    <Modal.RootWithContext ref={ref}>
+      <Modal.Portal
+        position='center'
+        className='w-full max-w-[650px]'
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Modal.XClose onClick={(e) => e.stopPropagation()} />
 
         <Modal.Title className='text-primary-100 text-xl text-start'>
-          Criar novo board
+          Editar board
         </Modal.Title>
 
-        <Modal.Content>
+        <Modal.Content onClick={(e) => e.stopPropagation()}>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className='flex flex-col gap-4'
@@ -90,13 +93,16 @@ export function CreateBoardModal() {
               <Button
                 type='button'
                 variant='secondary'
-                onClick={() => modalRef.current?.close()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  (ref as RefObject<ModalRootWithContextRef>)?.current?.close();
+                }}
               >
                 Cancelar
               </Button>
 
               <Button type='submit' variant='primary' disabled={isPending}>
-                {isPending ? 'Criando...' : 'Criar board'}
+                {isPending ? 'Atualizando...' : 'Atualizar board'}
               </Button>
             </div>
           </form>
@@ -104,4 +110,4 @@ export function CreateBoardModal() {
       </Modal.Portal>
     </Modal.RootWithContext>
   );
-}
+});

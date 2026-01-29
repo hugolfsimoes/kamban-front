@@ -2,16 +2,23 @@
 @tailwind utilities;
 
 @theme {
-  --color-primary-50: #a8c2ff;
-  --color-primary-100: #2463eb;
-  --color-primary-150: #1d4ed8;
+  /* Primary – baseado no #0079BF */
+  --color-primary-50: #e6f2fa;
+  --color-primary-100: #0079bf;
+  --color-primary-150: #005a8f;
 
-  --color-secondary-50: #f3f4f6;
-  --color-secondary-100: #1f2937;
-  --color-secondary-150: #111827;
+  /* Neutros */
+  --color-secondary-50: #f9fafb;
+  --color-secondary-100: #6b7280;
+  --color-secondary-150: #374151;
 
+  /* Backgrounds */
   --color-primary-bg: #ffffff;
-  --color-texto: #333333;
+  --color-secondary-bg: #f3f4f6;
+
+  /* Texto */
+  --color-texto: #404040;
+  --color-texto-secundario: #6b7280;
 
   --text-1: 4px;
   --text-2: 8px;

@@ -15,7 +15,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const buttonVariants = {
   base: 'inline-flex items-center justify-center rounded-2xl font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:pointer-events-none cursor-pointer',
   variants: {
-    primary: 'bg-primary-100 text-white hover:bg-primary-150',
+    primary: 'bg-primary-100 text-white hover:bg-primary-100',
     secondary: 'bg-secondary-100 text-white hover:bg-secondary-150',
     ghost: 'bg-transparent hover:bg-muted text-foreground',
     danger: 'bg-red-500 text-white hover:bg-red-600',

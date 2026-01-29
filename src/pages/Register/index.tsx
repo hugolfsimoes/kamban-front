@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import Logo from '../../assets/logo.svg';
 import AuthLayout from '../../layouts/AuthLayout';
 import { Button } from '@/components/Button';
-import { Input } from '@/components/Input';
+import { Input } from '@/components/Inputs/Input';
 
 export default function Register() {
   const { signup } = useAuth();
