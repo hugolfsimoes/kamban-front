@@ -6,9 +6,11 @@ import { DeleteBoardModal } from './DeleteBoardModal';
 import { Tooltip } from '@/components/Tooltip';
 import { EditBoardModal } from './EditBoardModal';
 import type { ModalRootWithContextRef } from '@/components/Modal';
+import { formatRelativeDate } from '@/utils/formatRelativeDate';
+import { GetBoardsOutput } from '@/services/boards/getBoards';
 
 type CardBoardProps = {
-  board: IBoard;
+  board: GetBoardsOutput;
 };
 
 export default function CardBoard({ board }: CardBoardProps) {
@@ -56,7 +58,7 @@ export default function CardBoard({ board }: CardBoardProps) {
           <Tooltip.SimpleComponent text='Editar board'>
             <button
               type='button'
-              className='cursor-pointer p-1 rounded text-gray-600'
+              className='cursor-pointer p-1 rounded text-texto hover:text-primary-100'
               onClick={openEditModal}
             >
               <FaRegEdit size={16} />
@@ -64,13 +66,13 @@ export default function CardBoard({ board }: CardBoardProps) {
           </Tooltip.SimpleComponent>
           <DeleteBoardModal ref={deleteModalRef} board={board} />
           <Tooltip.SimpleComponent
-            text='Excluir board'
+            text='Excluir quadro'
             className='max-w-full'
             color='danger'
           >
             <button
               type='button'
-              className='cursor-pointer p-1 rounded text-gray-600 transition-colors hover:text-red-400'
+              className='cursor-pointer p-1 rounded text-texto transition-colors hover:text-red-400'
               onClick={openDeleteModal}
             >
               <FaTrash size={16} />
@@ -79,8 +81,10 @@ export default function CardBoard({ board }: CardBoardProps) {
         </div>
       </div>
       <div className='flex flex-col text-texto text-xs items-start'>
-        <span>Última atualização:</span>
-        <span>Contém 2 colunas e 5 cards</span>
+        Atualizado {formatRelativeDate(board.updatedAt)}
+        <span>
+          Contém {board.columnsCount} colunas e {board.cardsCount} cards
+        </span>
       </div>
     </button>
   );

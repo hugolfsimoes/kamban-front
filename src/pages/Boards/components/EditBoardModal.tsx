@@ -14,8 +14,8 @@ import { IBoard } from '@/Interfaces/IBoard';
 const schema = z.object({
   name: z
     .string()
-    .nonempty('O nome do board é obrigatório')
-    .min(2, 'Nome muito curto'),
+    .nonempty('O nome do quadro é obrigatório')
+    .min(2, 'Nome do quadro muito curto'),
   color: z.string().min(1),
 });
 
@@ -63,7 +63,7 @@ export const EditBoardModal = forwardRef<
         <Modal.XClose onClick={(e) => e.stopPropagation()} />
 
         <Modal.Title className='text-primary-100 text-xl text-start'>
-          Editar board
+          Editar quadro
         </Modal.Title>
 
         <Modal.Content onClick={(e) => e.stopPropagation()}>
@@ -102,7 +102,7 @@ export const EditBoardModal = forwardRef<
               </Button>
 
               <Button type='submit' variant='primary' disabled={isPending}>
-                {isPending ? 'Atualizando...' : 'Atualizar board'}
+                {isPending ? 'Atualizando...' : 'Atualizar quadro'}
               </Button>
             </div>
           </form>

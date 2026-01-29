@@ -6,45 +6,45 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Modal, type ModalRootWithContextRef } from '@/components/Modal';
 import { Button } from '@/components/Button';
-import { createBoard } from '@/services/boards';
+import { createColumn } from '@/services/columns';
 import { FaPlus } from 'react-icons/fa6';
-import { InputColor } from '@/components/Inputs/InputColor';
 import { Input } from '@/components/Inputs/Input';
 
 const schema = z.object({
-  name: z
+  title: z
     .string()
-    .nonempty('O nome do quadro é obrigatório')
-    .min(2, 'Nome do quadro muito curto'),
-  color: z.string().min(1),
+    .nonempty('O nome da coluna é obrigatório')
+    .min(2, 'Nome da coluna muito curto'),
 });
 
 type FormValues = z.infer<typeof schema>;
 
-export function CreateBoardModal() {
+type CreateColumnModalProps = {
+  boardId: string;
+};
+
+export function CreateColumnModal({ boardId }: CreateColumnModalProps) {
   const modalRef = useRef<ModalRootWithContextRef>(null);
   const queryClient = useQueryClient();
 
-  const { reset, control, handleSubmit, register, formState } =
-    useForm<FormValues>({
-      resolver: zodResolver(schema),
-      defaultValues: {
-        name: '',
-        color: '#1d4ed8',
-      },
-    });
+  const { reset, handleSubmit, register, formState } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      title: '',
+    },
+  });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: createBoard,
+    mutationFn: createColumn,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['boards'] });
+      queryClient.invalidateQueries({ queryKey: ['board', boardId] });
       modalRef.current?.close();
       reset();
     },
   });
 
   const onSubmit = (data: FormValues) => {
-    mutate(data);
+    mutate({ boardId, title: data.title });
   };
 
   return (
@@ -52,7 +52,7 @@ export function CreateBoardModal() {
       <Modal.Trigger asChild>
         <Button variant='primary' size='lg' className='gap-4' type='button'>
           <FaPlus size={16} color='white' />
-          <span> Novo quadro</span>
+          <span> Nova coluna</span>
         </Button>
       </Modal.Trigger>
 
@@ -60,7 +60,7 @@ export function CreateBoardModal() {
         <Modal.XClose />
 
         <Modal.Title className='text-primary-100 text-xl text-start'>
-          Criar novo quadro
+          Criar nova coluna
         </Modal.Title>
 
         <Modal.Content>
@@ -70,22 +70,14 @@ export function CreateBoardModal() {
           >
             <div className='flex flex-col gap-1'>
               <label className='font-medium'>
-                Digite o nome do novo quadro
+                Digite o nome da nova coluna
               </label>
-              <Input placeholder='Digite o nome' {...register('name')} />
-              {formState.errors.name && (
+              <Input placeholder='Digite o nome' {...register('title')} />
+              {formState.errors.title && (
                 <span className='text-sm text-red-500'>
-                  {formState.errors.name.message}
+                  {formState.errors.title.message}
                 </span>
               )}
-            </div>
-
-            <div className='flex flex-col gap-1'>
-              <label className='font-medium'>Cor</label>
-
-              <div className='flex flex-wrap gap-2'>
-                <InputColor control={control} registerTitle='color' />
-              </div>
             </div>
 
             <div className='flex justify-end gap-2 mt-4'>
@@ -98,7 +90,7 @@ export function CreateBoardModal() {
               </Button>
 
               <Button type='submit' variant='primary' disabled={isPending}>
-                {isPending ? 'Criando...' : 'Criar novo quadro'}
+                {isPending ? 'Criando...' : 'Criar nova coluna'}
               </Button>
             </div>
           </form>

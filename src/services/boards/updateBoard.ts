@@ -12,7 +12,7 @@ export async function updateBoard({
   name,
   color,
 }: InputUpdateBoard): Promise<IBoard> {
-  const response = await api.patch(`/boards/${id}`, {
+  const response = await api.put(`/boards/${id}`, {
     name,
     color,
   });

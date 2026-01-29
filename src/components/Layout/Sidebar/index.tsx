@@ -11,33 +11,30 @@ export function Sidebar() {
 
   return (
     <aside
-      className="
+      className='
         flex flex-col
         w-60
         bg-primary-100 text-white
         px-4 py-6
         border-r border-white/10
         flex-shrink-0
-      "
+      '
     >
-
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold tracking-tight">Kamban</h2>
+      <div className='mb-8'>
+        <h2 className='text-2xl font-bold tracking-tight'>Kamban</h2>
       </div>
 
-
-      <nav className="flex-1">
-        <ul className="space-y-1">
-          <NavItem label="Boards" to="/boards" />
-          <NavItem label="Dashboard" to="/dashboard" />
+      <nav className='flex-1'>
+        <ul className='space-y-1'>
+          <NavItem label='Quadros' to='/boards' />
+          {/*       <NavItem label='Dashboard' to='/dashboard' /> */}
         </ul>
       </nav>
 
-      {/* Logout */}
       <div>
         <button
           onClick={handleLogout}
-          className="
+          className='
             w-full py-2
             bg-primary-100 hover:bg-primary-200
             rounded-md
@@ -46,7 +43,7 @@ export function Sidebar() {
             text-white
             hover:bg-white/10
             cursor-pointer
-          "
+          '
         >
           Logout
         </button>
@@ -54,6 +51,3 @@ export function Sidebar() {
     </aside>
   );
 }
-
-
-

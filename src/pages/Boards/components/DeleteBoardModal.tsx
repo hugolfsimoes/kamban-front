@@ -70,7 +70,7 @@ export const DeleteBoardModal = forwardRef<
                 }}
                 disabled={isPending}
               >
-                {isPending ? 'Excluindo...' : 'Excluir board'}
+                {isPending ? 'Excluindo...' : 'Excluir quadro'}
               </Button>
             </div>
           </div>
