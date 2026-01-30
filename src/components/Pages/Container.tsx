@@ -1,13 +1,16 @@
 import { cn } from '@/utils/cn';
 import { type HTMLAttributes } from 'react';
 
-export function Content({
+export function Container({
   className,
   children,
   ...props
 }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className='h-screen flex flex-col p-6' {...props}>
+    <div
+      className={cn('h-full flex flex-col overflow-y-auto p-6', className)}
+      {...props}
+    >
       {children}
     </div>
   );

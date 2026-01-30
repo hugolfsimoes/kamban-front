@@ -12,8 +12,7 @@ export async function createColumn({
 }: InputCreateColumn): Promise<BoardColumnDTO> {
   const response = await api.post(`/columns`, {
     title,
-    boardId,
-    position: 0
+    boardId
   });
 
   return response.data.column as BoardColumnDTO;

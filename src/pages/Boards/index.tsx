@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import CardBoard from './components/CardBoard';
 import { getBoards, createBoard } from '@/services/boards';
 import { CreateBoardModal } from './components/CreateBoardModal';
-import { Content } from '@/components/Pages';
+import { Page } from '@/components/Pages';
 
 export function Boards() {
   const queryClient = useQueryClient();
@@ -30,7 +30,7 @@ export function Boards() {
     return <p>Ocorreu um erro ao buscar os boards: {error.message}</p>;
 
   return (
-    <Content>
+    <Page.Container>
       <div className='flex flex-col gap-8'>
         <div className='flex items-center justify-between'>
           <h1 className='text-2xl font-bold mb-6'>Meus Quadros</h1>
@@ -50,6 +50,6 @@ export function Boards() {
           </div>
         )}
       </div>
-    </Content>
+    </Page.Container>
   );
 }
