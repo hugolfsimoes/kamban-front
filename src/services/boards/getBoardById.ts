@@ -1,10 +1,11 @@
 import { api } from '@/api/api';
-import { IBoard } from '@/Interfaces/IBoard';
+import type { CardDTO } from '@/services/cards/types';
 
 export interface BoardColumnDTO {
     id: string;
     title: string;
     order: number;
+    cards: CardDTO[];
 }
 
 export interface BoardDetailsDTO {

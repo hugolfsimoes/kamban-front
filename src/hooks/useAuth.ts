@@ -1,4 +1,3 @@
-// src/hooks/useAuth.ts
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { signin, signup, SigninDTO, SignupDTO } from '@/services/auth/auth.service';
 

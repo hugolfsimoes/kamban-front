@@ -1,4 +1,3 @@
-// index.ts
 import { Root, Trigger, Close, type DialogProps } from './ModalRoot';
 import { ModalPortal, type ModalPortalProps } from './ModalPortal';
 import { ModalContent } from './ModalContent';

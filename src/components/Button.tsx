@@ -1,4 +1,3 @@
-// src/components/ui/button.tsx
 import { cn } from '@/utils/cn';
 import { Slot } from '@radix-ui/react-slot';
 import { ButtonHTMLAttributes, forwardRef } from 'react';

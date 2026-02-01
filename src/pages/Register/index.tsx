@@ -29,7 +29,7 @@ export default function Register() {
         <h1>Crie sua conta</h1>
         <div className='space-x-1'>
           <span>Já tem uma conta?</span>
-          <a href='/' className='text-4'>
+          <a href='/' className='text-4 text-primary-100 hover:underline'>
             Faça login
           </a>
         </div>
@@ -42,7 +42,6 @@ export default function Register() {
             type='text'
             placeholder='Seu nome completo'
             value={name}
-            label='Nome'
             onChange={(e) => setName(e.target.value)}
           />
         </div>
@@ -52,7 +51,6 @@ export default function Register() {
             type='text'
             placeholder='Nome da Organização'
             value={organizationName}
-            label='Nome da Organização'
             onChange={(e) => setOrganizationName(e.target.value)}
           />
         </div>
@@ -62,7 +60,6 @@ export default function Register() {
             type='email'
             placeholder='Digite seu email'
             value={email}
-            label='Email'
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -72,7 +69,6 @@ export default function Register() {
             type='password'
             placeholder='Crie uma senha'
             value={password}
-            label='Senha'
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>

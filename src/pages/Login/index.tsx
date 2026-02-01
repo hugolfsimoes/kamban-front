@@ -53,7 +53,10 @@ export default function Login() {
         <h1>Entre em sua conta</h1>
         <div className='space-x-1'>
           <span>Novo por aqui?</span>
-          <a href='/register' className='text-4'>
+          <a
+            href='/register'
+            className='text-4 text-primary-100 hover:underline'
+          >
             Crie uma conta
           </a>
         </div>
@@ -67,9 +70,7 @@ export default function Login() {
           <Input
             id='email'
             type='email'
-            label='Email'
             placeholder='Digite seu email'
-            error={errors.email?.message}
             {...register('email')}
             onChange={(e) => {
               clearFieldErrors('email');
@@ -83,9 +84,7 @@ export default function Login() {
           <Input
             id='password'
             type='password'
-            label='Senha'
             placeholder='Digite sua senha'
-            error={errors.password?.message}
             {...register('password')}
             onChange={(e) => {
               clearFieldErrors('password');
